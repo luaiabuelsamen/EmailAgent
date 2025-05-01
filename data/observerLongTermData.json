@@ -5,7 +5,7 @@
     "frequentShopper": false,
     "traveler": false,
     "billPayer": false,
-    "jobSearching": false,
+    "jobSearching": true,
     "sociallyActive": false
   },
   "timestamps": {
@@ -14,7 +14,7 @@
     "frequentShopper": null,
     "traveler": null,
     "billPayer": null,
-    "jobSearching": null,
+    "jobSearching": "2025-04-30T21:01:10.403217",
     "sociallyActive": null
   }
-} 
+}

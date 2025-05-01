@@ -1,35 +1,35 @@
 {
   "manifest_version": 3,
-  "name": "Cognitive Email Assistant",
+  "name": "Email Analysis Agent",
   "version": "1.0",
-  "description": "An intelligent email assistant that analyzes and helps manage your Gmail",
+  "description": "AI-powered email analysis for Gmail",
   "permissions": [
     "activeTab",
     "storage",
     "identity",
-    "https://mail.google.com/*"
+    "identity.email"
   ],
   "host_permissions": [
-    "https://mail.google.com/*"
+    "https://mail.google.com/*",
+    "http://localhost:8000/*"
   ],
-  "oauth2": {
-    "client_id": "579362248829-g2sevv19cfinv8rmnd9qnapl82g42ul8.apps.googleusercontent.com",
-    "scopes": [
-      "https://www.googleapis.com/auth/gmail.readonly",
-      "https://www.googleapis.com/auth/gmail.modify"
-    ]
-  },
   "action": {
     "default_popup": "popup.html"
   },
   "content_scripts": [
     {
       "matches": ["https://mail.google.com/*"],
-      "js": ["content.js"],
-      "css": ["styles.css"]
+      "js": ["content.js"]
     }
   ],
   "background": {
     "service_worker": "background.js"
+  },
+  "oauth2": {
+    "client_id": "${CHROME_CLIENT_ID}",
+    "scopes": [
+      "https://www.googleapis.com/auth/gmail.readonly",
+      "https://www.googleapis.com/auth/userinfo.email"
+    ]
   }
 } 

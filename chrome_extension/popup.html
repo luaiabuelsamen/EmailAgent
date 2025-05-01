@@ -1,38 +1,421 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Cognitive Email Assistant</title>
-    <link rel="stylesheet" type="text/css" href="styles.css">
+    <title>Email Analysis</title>
+    <style>
+        :root {
+            --primary-color: #4285f4;
+            --secondary-color: #34a853;
+            --warning-color: #fbbc05;
+            --danger-color: #ea4335;
+            --background-color: #ffffff;
+            --text-color: #202124;
+            --border-color: #dadce0;
+            --hover-color: #f1f3f4;
+        }
+
+        body {
+            width: 500px;
+            margin: 0;
+            padding: 16px;
+            font-family: 'Google Sans', Arial, sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 16px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 20px;
+            color: var(--primary-color);
+        }
+
+        .tabs {
+            display: flex;
+            margin-bottom: 16px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .tab {
+            padding: 8px 16px;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s;
+        }
+
+        .tab:hover {
+            background-color: var(--hover-color);
+        }
+
+        .tab.active {
+            border-bottom-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .analysis-section {
+            margin-bottom: 16px;
+            padding: 12px;
+            border-radius: 8px;
+            background-color: #f8f9fa;
+        }
+
+        .section-title {
+            font-size: 16px;
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: var(--primary-color);
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 4px 8px;
+            margin: 4px;
+            border-radius: 4px;
+            background-color: var(--primary-color);
+            color: white;
+            font-size: 12px;
+        }
+
+        .priority-tag {
+            background-color: var(--warning-color);
+        }
+
+        .urgency-tag {
+            background-color: var(--danger-color);
+        }
+
+        .bucket-tag {
+            background-color: var(--secondary-color);
+        }
+
+        .action-button {
+            display: block;
+            width: 100%;
+            padding: 8px 16px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 4px;
+            background-color: var(--primary-color);
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .action-button:hover {
+            background-color: #3367d6;
+        }
+
+        .participants-list {
+            margin-top: 8px;
+        }
+
+        .participant {
+            display: flex;
+            align-items: center;
+            padding: 4px 0;
+        }
+
+        .participant-role {
+            font-weight: 500;
+            margin-right: 8px;
+            color: var(--primary-color);
+        }
+
+        .email-preview {
+            margin-top: 8px;
+            padding: 8px;
+            background-color: white;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-size: 14px;
+            white-space: pre-wrap;
+        }
+
+        .email-preview .subject {
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+
+        .email-preview .body {
+            color: #5f6368;
+        }
+
+        .analysis-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .analysis-card {
+            padding: 12px;
+            background-color: white;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+        }
+
+        .analysis-card .title {
+            font-size: 14px;
+            color: #5f6368;
+            margin-bottom: 4px;
+        }
+
+        .analysis-card .value {
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        .timeline {
+            margin-top: 16px;
+        }
+
+        .timeline-item {
+            display: flex;
+            margin-bottom: 12px;
+            padding-left: 16px;
+            border-left: 2px solid var(--primary-color);
+        }
+
+        .timeline-item .time {
+            font-size: 12px;
+            color: #5f6368;
+            margin-right: 8px;
+        }
+
+        .timeline-item .content {
+            flex: 1;
+        }
+
+        .buckets-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-top: 12px;
+        }
+
+        .bucket-card {
+            padding: 12px;
+            background-color: white;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .bucket-card:hover {
+            background-color: var(--hover-color);
+        }
+
+        .bucket-card.active {
+            border-color: var(--primary-color);
+            background-color: #e8f0fe;
+        }
+
+        .bucket-card .title {
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+
+        .bucket-card .count {
+            font-size: 12px;
+            color: #5f6368;
+        }
+
+        .thread-list {
+            margin-top: 12px;
+        }
+
+        .thread-item {
+            padding: 12px;
+            background-color: white;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            margin-bottom: 8px;
+            cursor: pointer;
+        }
+
+        .thread-item:hover {
+            background-color: var(--hover-color);
+        }
+
+        .thread-item .subject {
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+
+        .thread-item .meta {
+            font-size: 12px;
+            color: #5f6368;
+        }
+
+        .email-item {
+            padding: 12px;
+            background-color: white;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            margin-bottom: 8px;
+        }
+
+        .email-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+
+        .email-subject {
+            font-weight: 500;
+            color: var(--text-color);
+        }
+
+        .email-meta {
+            display: flex;
+            gap: 8px;
+            font-size: 12px;
+            color: #5f6368;
+        }
+
+        .email-snippet {
+            font-size: 14px;
+            color: #5f6368;
+            margin-bottom: 8px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .email-tags {
+            display: flex;
+            gap: 8px;
+        }
+
+        .sentiment-tag {
+            background-color: var(--secondary-color);
+        }
+
+        .high-tag {
+            background-color: var(--danger-color);
+        }
+
+        .normal-tag {
+            background-color: var(--warning-color);
+        }
+
+        .low-tag {
+            background-color: var(--secondary-color);
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Cognitive Email Assistant</h1>
-        <div id="status" class="status">
-            <p>Loading...</p>
+    <div class="header">
+        <h1>Email Analysis</h1>
+    </div>
+
+    <div id="loading" class="analysis-section">
+        Analyzing email...
+    </div>
+
+    <div id="analysis" style="display: none;">
+        <div class="tabs">
+            <div class="tab active" data-tab="overview">Overview</div>
+            <div class="tab" data-tab="recent">Recent</div>
+            <div class="tab" data-tab="buckets">Buckets</div>
+            <div class="tab" data-tab="threads">Threads</div>
+            <div class="tab" data-tab="details">Details</div>
+            <div class="tab" data-tab="actions">Actions</div>
         </div>
-        <div id="email-analysis" class="hidden">
-            <div class="email-header">
-                <h2>Current Email Analysis</h2>
+
+        <div class="tab-content active" id="overview-tab">
+            <div class="analysis-grid">
+                <div class="analysis-card">
+                    <div class="title">Priority</div>
+                    <div class="value" id="priority"></div>
+                </div>
+                <div class="analysis-card">
+                    <div class="title">Urgency</div>
+                    <div class="value" id="urgency"></div>
+                </div>
+                <div class="analysis-card">
+                    <div class="title">Category</div>
+                    <div class="value" id="bucket"></div>
+                </div>
+                <div class="analysis-card">
+                    <div class="title">Sentiment</div>
+                    <div class="value" id="sentiment"></div>
+                </div>
             </div>
-            <div class="analysis-content">
-                <div class="intent-section">
-                    <h3>Primary Intent</h3>
-                    <p id="primary-intent">Analyzing...</p>
-                </div>
-                <div class="priority-section">
-                    <h3>Priority Level</h3>
-                    <p id="priority-level">Analyzing...</p>
-                </div>
-                <div class="suggestions-section">
-                    <h3>Suggested Actions</h3>
-                    <ul id="suggestions-list"></ul>
-                </div>
+            <div class="analysis-section">
+                <div class="section-title">Primary Intent</div>
+                <div id="primary-intent"></div>
             </div>
         </div>
-        <div class="auth-section">
-            <button id="auth-button" class="auth-button">Connect to Gmail</button>
+
+        <div class="tab-content" id="recent-tab">
+            <div class="analysis-section">
+                <div class="section-title">Recent Emails</div>
+                <div id="recent-emails"></div>
+            </div>
+        </div>
+
+        <div class="tab-content" id="buckets-tab">
+            <div class="analysis-section">
+                <div class="section-title">Email Buckets</div>
+                <div class="buckets-container" id="email-buckets"></div>
+            </div>
+        </div>
+
+        <div class="tab-content" id="threads-tab">
+            <div class="analysis-section">
+                <div class="section-title">Email Threads</div>
+                <div class="thread-list" id="thread-list"></div>
+            </div>
+        </div>
+
+        <div class="tab-content" id="details-tab">
+            <div class="analysis-section">
+                <div class="section-title">Email Preview</div>
+                <div class="email-preview">
+                    <div class="subject" id="email-subject"></div>
+                    <div class="body" id="email-body"></div>
+                </div>
+            </div>
+            <div class="analysis-section">
+                <div class="section-title">Social Context</div>
+                <div id="social-context"></div>
+            </div>
+            <div class="analysis-section">
+                <div class="section-title">Participants</div>
+                <div id="participants" class="participants-list"></div>
+            </div>
+        </div>
+
+        <div class="tab-content" id="actions-tab">
+            <div class="analysis-section">
+                <div class="section-title">Suggested Actions</div>
+                <div id="suggested-actions"></div>
+            </div>
+            <div class="analysis-section">
+                <div class="section-title">Suggested Response</div>
+                <div id="suggested-response"></div>
+                <button class="action-button" id="copy-response">Copy Response</button>
+            </div>
         </div>
     </div>
+
     <script src="popup.js"></script>
 </body>
 </html> 

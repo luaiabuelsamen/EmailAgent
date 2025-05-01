@@ -320,6 +320,58 @@ class ObserverAgent:
         
         return self.long_term_memory
 
+    def get_bucket_count(self, bucket: str) -> int:
+        """Get the number of emails in a bucket."""
+        count = 0
+        for thread_id, assigned_bucket in self.session_memory.thread_to_bucket.items():
+            if assigned_bucket == bucket:
+                count += 1
+        return count
+
+    def get_bucket_description(self, bucket: str) -> str:
+        """Get a description for a bucket."""
+        descriptions = {
+            "Work": "Work-related emails, projects, and meetings",
+            "Newsletters": "Subscribed newsletters and updates",
+            "Bills": "Bills, payments, and financial notifications",
+            "Social": "Social events and personal communications",
+            "Shopping": "Online shopping and order tracking",
+            "Travel": "Travel bookings and itineraries",
+            "Job Search": "Job applications and career opportunities",
+            "Personal Finance": "Banking and financial statements",
+            "Personal": "Personal communications and messages",
+            "Updates": "System updates and notifications",
+            "Finance": "Financial transactions and records"
+        }
+        return descriptions.get(bucket, f"Emails categorized as {bucket}")
+
+    def get_related_threads(self, thread: Dict[str, Any]) -> List[Dict[str, Any]]:
+        """Get threads related to the given thread."""
+        related_threads = []
+        current_bucket = self.session_memory.thread_to_bucket.get(thread['thread_id'])
+        
+        if not current_bucket:
+            return []
+
+        # Get all threads in the same bucket
+        for thread_id, bucket in self.session_memory.thread_to_bucket.items():
+            if bucket == current_bucket and thread_id != thread['thread_id']:
+                # Load thread data
+                thread_data = self._load_thread_data(thread_id)
+                if thread_data:
+                    related_threads.append(thread_data)
+
+        # Sort by date (most recent first) and limit to 5 threads
+        related_threads.sort(key=lambda x: x['received_at'], reverse=True)
+        return related_threads[:5]
+
+    def _load_thread_data(self, thread_id: str) -> Optional[Dict[str, Any]]:
+        """Load thread data from session data."""
+        threads = self._load_session_data()
+        for thread in threads:
+            if thread['thread_id'] == thread_id:
+                return thread
+        return None
 
 # Command-line demo
 if __name__ == "__main__":

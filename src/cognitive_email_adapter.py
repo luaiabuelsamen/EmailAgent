@@ -1,14 +1,69 @@
 import datetime
 import sys
 import os
+import json
 from typing import Dict, List, Any, Optional
+from langchain_anthropic import ChatAnthropic
+from langchain.output_parsers import ResponseSchema, StructuredOutputParser
+from langchain.prompts import ChatPromptTemplate, HumanMessagePromptTemplate
+from src.config import ANTHROPIC_API_KEY
 
 # Add the parent directory to the Python path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
+# Initialize LangChain with Anthropic
+llm = ChatAnthropic(
+    model="claude-3-opus-20240229",
+    anthropic_api_key=ANTHROPIC_API_KEY,
+    temperature=0
+)
+
+# Define the output schema
+response_schemas = [
+    ResponseSchema(name="primary_intent", description="The main purpose or intent of the email"),
+    ResponseSchema(name="priority", description="Priority level (high/medium/low) based on content and urgency"),
+    ResponseSchema(name="social_context", description="Array of strings describing social and relationship insights"),
+    ResponseSchema(name="suggested_actions", description="Array of specific actions to take based on the email"),
+    ResponseSchema(name="related_emails", description="Array of objects with subject and from fields (can be empty)")
+]
+output_parser = StructuredOutputParser.from_response_schemas(response_schemas)
+
+# Create the prompt template
+PROMPT_TEMPLATE = """
+Analyze this email and provide a detailed analysis:
+
+Email Subject: {subject}
+From: {sender}
+To: {recipients}
+Body: {body}
+
+Please analyze this email and provide:
+1. The primary intent of the email
+2. Priority level (high/medium/low) based on content and urgency
+3. Social context and relationship insights
+4. Specific suggested actions
+
+{format_instructions}
+"""
+
+prompt = ChatPromptTemplate.from_messages([
+    HumanMessagePromptTemplate.from_template(PROMPT_TEMPLATE)
+])
+
 # Now import the modules
-from ingestionAgent import IngestionAgent, EmailMessage, IngestedThread
-from cognitive_email_ecosystem import CognitiveEmailSystem, Email
+from src.ingestionAgent import IngestionAgent, EmailMessage, IngestedThread
+
+class Email:
+    """Basic email class for cognitive processing."""
+    def __init__(self, sender: str, recipients: List[str], subject: str, body: str, 
+                 timestamp: datetime.datetime, thread_id: str):
+        self.sender = sender
+        self.recipients = recipients
+        self.subject = subject
+        self.body = body
+        self.timestamp = timestamp
+        self.thread_id = thread_id
+        self.metadata = {}
 
 class CognitiveEmailAdapter:
     """
@@ -17,45 +72,11 @@ class CognitiveEmailAdapter:
     """
     def __init__(self, data_path: str = 'data/syntheticEmails.json'):
         self.ingestion_agent = IngestionAgent(data_path)
-        self.cognitive_system = CognitiveEmailSystem()
+        self.processed_emails = []
         
     def initialize_system(self):
         """Initialize the cognitive system with basic context."""
-        # Set up context data
-        self.cognitive_system.context_agent.update_context(
-            calendar_events=[
-                {
-                    'title': 'Project Alpha Review',
-                    'start': datetime.datetime.now() + datetime.timedelta(hours=1),
-                    'end': datetime.datetime.now() + datetime.timedelta(hours=2),
-                    'attendees': ['manager@company.com', 'team1@company.com']
-                },
-                {
-                    'title': 'Weekly Team Sync',
-                    'start': datetime.datetime.now() + datetime.timedelta(days=1),
-                    'end': datetime.datetime.now() + datetime.timedelta(days=1, hours=1),
-                    'attendees': ['team1@company.com', 'team2@company.com', 'design@company.com']
-                }
-            ],
-            location="Office",
-            focus_mode="normal"
-        )
-        
-        # Set up organization data
-        self.cognitive_system.social_graph.set_org_data(
-            hierarchy={
-                'manager@company.com': 'executive@company.com',
-                'user_email@example.com': 'manager@company.com',
-                'team1@company.com': 'user_email@example.com',
-                'team2@company.com': 'user_email@example.com',
-                'design@company.com': 'user_email@example.com',
-                'external@partner.com': 'partner_manager@partner.com',
-            },
-            teams={
-                'Project Alpha': ['user_email@example.com', 'team1@company.com', 'design@company.com'],
-                'Project Beta': ['user_email@example.com', 'team2@company.com', 'external@partner.com'],
-            }
-        )
+        pass  # We'll use LangChain for analysis instead
     
     def convert_to_cognitive_email(self, ingested_thread: IngestedThread) -> List[Email]:
         """Convert an IngestedThread to a list of Email objects for the cognitive system."""
@@ -75,125 +96,39 @@ class CognitiveEmailAdapter:
             
         return emails
     
-    def process_threads(self) -> Dict[str, List[Dict[str, Any]]]:
-        """Process all ingested threads through the cognitive system."""
-        # First, ingest the emails
-        ingested_threads = self.ingestion_agent.ingest()
-        
-        # Initialize the cognitive system
-        self.initialize_system()
-        
-        # Process each thread through the cognitive system
-        results = {}
-        for ingested_thread in ingested_threads:
-            thread_results = []
+    async def process_email(self, email: Email) -> Dict[str, Any]:
+        """Process a single email using LangChain with Claude."""
+        try:
+            # Format the prompt with email data
+            formatted_prompt = prompt.format_messages(
+                subject=email.subject,
+                sender=email.sender,
+                recipients=', '.join(email.recipients),
+                body=email.body,
+                format_instructions=output_parser.get_format_instructions()
+            )
             
-            # Convert and process each message in the thread
-            emails = self.convert_to_cognitive_email(ingested_thread)
-            for email in emails:
-                # Process the email through the cognitive system
-                result = self.cognitive_system.process_email(email)
-                thread_results.append(result)
+            # Get response from Claude through LangChain
+            response = llm.invoke(formatted_prompt)
             
-            # Store results by thread ID
-            results[ingested_thread.thread_id] = thread_results
+            # Parse the structured output
+            result = output_parser.parse(response.content)
             
-        return results
-    
-    def get_thread_summaries(self) -> List[Dict[str, Any]]:
-        """Get a summary of all processed threads."""
-        summaries = []
-        
-        # Process threads if not already done
-        if not self.cognitive_system.processed_emails:
-            self.process_threads()
-        
-        # Group emails by thread ID
-        thread_map = {}
-        for email in self.cognitive_system.processed_emails:
-            thread_id = email.thread_id
-            if thread_id not in thread_map:
-                thread_map[thread_id] = []
-            thread_map[thread_id].append(email)
-        
-        # Create summary for each thread
-        for thread_id, emails in thread_map.items():
-            # Sort emails by timestamp
-            sorted_emails = sorted(emails, key=lambda e: e.timestamp)
+            # Store the email for future reference
+            self.processed_emails.append(email)
             
-            # Get the latest email in the thread
-            latest_email = sorted_emails[-1]
+            return result
             
-            # Extract unique participants
-            participants = set()
-            for email in emails:
-                participants.add(email.sender)
-                participants.update(email.recipients)
-            
-            # Create the summary
-            summary = {
-                'thread_id': thread_id,
-                'subject': sorted_emails[0].subject,  # Use the subject from the first email
-                'latest_snippet': latest_email.body[:100] + "..." if len(latest_email.body) > 100 else latest_email.body,
-                'latest_timestamp': latest_email.timestamp.isoformat(),
-                'message_count': len(emails),
-                'participants': list(participants),
-                'prioritization': {
-                    'score': latest_email.metadata.get('predicted_priority', 0.5),
-                    'intent': latest_email.metadata.get('primary_intent', 'unknown'),
-                    'urgency': latest_email.metadata.get('intent_urgency', 'low'),
-                },
-                'actions_required': any(
-                    email.metadata.get('primary_intent') in ['request_action', 'approval', 'seek_input']
-                    for email in emails
-                ),
-                'context_factors': {
-                    'related_event': latest_email.metadata.get('related_imminent_event'),
-                    'social_importance': latest_email.metadata.get('social_importance'),
-                    'org_relationship': latest_email.metadata.get('org_relationship'),
-                }
+        except Exception as e:
+            print(f"Error processing email with LangChain: {e}")
+            # Return a basic analysis if processing fails
+            return {
+                "primary_intent": "unknown",
+                "priority": "medium",
+                "social_context": [],
+                "suggested_actions": ["Review email content"],
+                "related_emails": []
             }
-            
-            summaries.append(summary)
-            
-        # Sort summaries by priority score
-        summaries.sort(key=lambda s: s['prioritization']['score'], reverse=True)
-        
-        return summaries
-    
-    def get_suggested_actions(self) -> List[Dict[str, Any]]:
-        """Get suggested actions for all processed emails."""
-        actions = []
-        
-        # Process threads if not already done
-        if not self.cognitive_system.processed_emails:
-            self.process_threads()
-        
-        # Find emails with automated handling
-        for email in self.cognitive_system.processed_emails:
-            # Re-process to get the action plan
-            result = self.cognitive_system.process_email(email)
-            
-            if 'action_plan' in result:
-                # Create an action suggestion
-                action = {
-                    'email_id': id(email),
-                    'thread_id': email.thread_id,
-                    'subject': email.subject,
-                    'sender': email.sender,
-                    'timestamp': email.timestamp.isoformat(),
-                    'intent': email.metadata.get('primary_intent', 'unknown'),
-                    'action_type': result['action_plan']['specialist'],
-                    'action_details': result['action_plan'],
-                    'priority_score': email.metadata.get('predicted_priority', 0.5)
-                }
-                
-                actions.append(action)
-        
-        # Sort actions by priority score
-        actions.sort(key=lambda a: a['priority_score'], reverse=True)
-        
-        return actions
 
 
 # Command-line validation script
