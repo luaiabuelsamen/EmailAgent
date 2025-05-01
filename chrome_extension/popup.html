@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cognitive Email Assistant</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Cognitive Email Assistant</h1>
+        <div id="status" class="status">
+            <p>Loading...</p>
+        </div>
+        <div id="email-analysis" class="hidden">
+            <div class="email-header">
+                <h2>Current Email Analysis</h2>
+            </div>
+            <div class="analysis-content">
+                <div class="intent-section">
+                    <h3>Primary Intent</h3>
+                    <p id="primary-intent">Analyzing...</p>
+                </div>
+                <div class="priority-section">
+                    <h3>Priority Level</h3>
+                    <p id="priority-level">Analyzing...</p>
+                </div>
+                <div class="suggestions-section">
+                    <h3>Suggested Actions</h3>
+                    <ul id="suggestions-list"></ul>
+                </div>
+            </div>
+        </div>
+        <div class="auth-section">
+            <button id="auth-button" class="auth-button">Connect to Gmail</button>
+        </div>
+    </div>
+    <script src="popup.js"></script>
+</body>
+</html> 
