@@ -6,6 +6,7 @@ This script creates necessary directories and ensures the project structure is c
 
 import os
 import sys
+from setuptools import setup, find_packages
 
 def ensure_directories():
     """Create all necessary directories for the project."""
@@ -65,4 +66,29 @@ if __name__ == "__main__":
     print("\nOr run the tests:")
     print("  python tests/ingestionAgent_test.py")
     print("\nOr try the adapter to connect ingestion with the cognitive system:")
-    print("  python src/cognitive_email_adapter.py") 
+    print("  python src/cognitive_email_adapter.py")
+
+setup(
+    name="cognitive-email-ecosystem",
+    version="0.1.0",
+    description="A hierarchical agent-based approach to email management",
+    author="Cognitive Email Team",
+    author_email="info@example.com",
+    packages=find_packages(),
+    include_package_data=True,
+    install_requires=[
+        "flask==2.3.3",
+        "jinja2==3.1.2",
+        "werkzeug==2.3.7"
+    ],
+    classifiers=[
+        "Development Status :: 3 - Alpha",
+        "Intended Audience :: Developers",
+        "License :: OSI Approved :: MIT License",
+        "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10",
+    ],
+    python_requires=">=3.8",
+) 

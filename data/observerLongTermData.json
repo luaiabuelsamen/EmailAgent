@@ -1,0 +1,20 @@
+{
+  "userTraits": {
+    "workEmailUser": false,
+    "newsletterSubscriber": false,
+    "frequentShopper": false,
+    "traveler": false,
+    "billPayer": false,
+    "jobSearching": false,
+    "sociallyActive": false
+  },
+  "timestamps": {
+    "workEmailUser": null,
+    "newsletterSubscriber": null,
+    "frequentShopper": null,
+    "traveler": null,
+    "billPayer": null,
+    "jobSearching": null,
+    "sociallyActive": null
+  }
+} 

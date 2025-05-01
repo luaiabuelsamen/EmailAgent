@@ -1,0 +1,116 @@
+{
+  "threads": [
+    {
+      "thread_id": "work1",
+      "subject": "Project Alpha Requirements Review",
+      "latest_snippet": "I've attached the updated requirements document. Please review by tomorrow's meeting.",
+      "participants": ["manager@company.com", "user_email@example.com", "team1@company.com"],
+      "received_at": "2025-04-30T18:45:00Z",
+      "message_count": 3
+    },
+    {
+      "thread_id": "work2",
+      "subject": "Quarterly Budget Planning",
+      "latest_snippet": "Here's the draft budget for Q3. Let me know if you have any questions before the finance review.",
+      "participants": ["finance@company.com", "user_email@example.com", "executive@company.com"],
+      "received_at": "2025-04-29T14:30:00Z",
+      "message_count": 2
+    },
+    {
+      "thread_id": "newsletter1",
+      "subject": "Tech Weekly: AI Breakthroughs in Email Management",
+      "latest_snippet": "This week's top stories include new developments in AI-powered email organization systems.",
+      "participants": ["newsletter@tech-weekly.com", "user_email@example.com"],
+      "received_at": "2025-04-30T08:00:00Z",
+      "message_count": 1
+    },
+    {
+      "thread_id": "newsletter2",
+      "subject": "Industry Insights: Future of Remote Work",
+      "latest_snippet": "Our latest research shows that 85% of companies are planning to maintain hybrid work models.",
+      "participants": ["research@industry-trends.com", "user_email@example.com"],
+      "received_at": "2025-04-28T10:15:00Z",
+      "message_count": 1
+    },
+    {
+      "thread_id": "bill1",
+      "subject": "Your Monthly Phone Bill is Ready",
+      "latest_snippet": "Your bill of $84.99 is due on May 15. Click here to view details or make a payment.",
+      "participants": ["billing@phonecompany.com", "user_email@example.com"],
+      "received_at": "2025-04-30T05:30:00Z",
+      "message_count": 1
+    },
+    {
+      "thread_id": "bill2",
+      "subject": "Electric Service - Payment Reminder",
+      "latest_snippet": "This is a reminder that your payment of $132.45 is due in 5 days.",
+      "participants": ["payments@electriccompany.com", "user_email@example.com"],
+      "received_at": "2025-04-29T12:00:00Z",
+      "message_count": 1
+    },
+    {
+      "thread_id": "social1",
+      "subject": "Weekend Plans?",
+      "latest_snippet": "Hey! A few of us are thinking about hiking on Saturday. Want to join?",
+      "participants": ["friend@personal.com", "user_email@example.com"],
+      "received_at": "2025-04-30T19:20:00Z",
+      "message_count": 4
+    },
+    {
+      "thread_id": "social2",
+      "subject": "Dinner next Tuesday?",
+      "latest_snippet": "Let's plan for 7pm at that new Italian place downtown. I've heard good things!",
+      "participants": ["family@personal.com", "user_email@example.com", "spouse@personal.com"],
+      "received_at": "2025-04-30T17:15:00Z",
+      "message_count": 3
+    },
+    {
+      "thread_id": "shopping1",
+      "subject": "Your Order #12345 has been shipped",
+      "latest_snippet": "Your recent purchase has been shipped and should arrive by May 5. Track your package here.",
+      "participants": ["orders@onlinestore.com", "user_email@example.com"],
+      "received_at": "2025-04-30T09:45:00Z",
+      "message_count": 1
+    },
+    {
+      "thread_id": "shopping2",
+      "subject": "Order Confirmation #54321",
+      "latest_snippet": "Thank you for your purchase! Your order has been confirmed and is being processed.",
+      "participants": ["sales@electronics.com", "user_email@example.com"],
+      "received_at": "2025-04-29T16:20:00Z",
+      "message_count": 1
+    },
+    {
+      "thread_id": "travel1",
+      "subject": "Flight Confirmation: NYC to SFO",
+      "latest_snippet": "Your flight is confirmed for May 15 at 10:30 AM. Check-in opens 24 hours before departure.",
+      "participants": ["reservations@airline.com", "user_email@example.com"],
+      "received_at": "2025-04-28T14:00:00Z",
+      "message_count": 1
+    },
+    {
+      "thread_id": "travel2",
+      "subject": "Hotel Reservation #H789012",
+      "latest_snippet": "Your 3-night stay at Grand Hotel is confirmed. Check-in: May 15, Check-out: May 18.",
+      "participants": ["bookings@grandhotel.com", "user_email@example.com"],
+      "received_at": "2025-04-28T15:30:00Z",
+      "message_count": 1
+    },
+    {
+      "thread_id": "recruitment1",
+      "subject": "Job Application Status: Software Engineer Position",
+      "latest_snippet": "Thank you for your application. We'd like to schedule an interview with you next week.",
+      "participants": ["recruiting@techcompany.com", "user_email@example.com"],
+      "received_at": "2025-04-30T11:20:00Z",
+      "message_count": 2
+    },
+    {
+      "thread_id": "recruitment2",
+      "subject": "Follow-up on your application",
+      "latest_snippet": "We've reviewed your resume and would like to discuss some opportunities that match your skills.",
+      "participants": ["jobs@recruiter.com", "user_email@example.com"],
+      "received_at": "2025-04-29T13:45:00Z",
+      "message_count": 1
+    }
+  ]
+} 
