@@ -1,0 +1,181 @@
+{
+  "threads": [
+    {
+      "threadId": "thread1",
+      "messages": [
+        {
+          "id": "msg1-1",
+          "from": "team1@company.com",
+          "to": ["user_email@example.com"],
+          "date": "2025-04-30T18:30:00Z",
+          "subject": "Project Alpha budget approval needed",
+          "snippet": "We need your approval on the revised budget for Project Alpha...",
+          "body": "Hi,\n\nWe need your approval on the revised budget for Project Alpha. The design team encountered a technical blocker that requires additional resources. Can you review and approve by EOD?\n\nThe budget increase is $15,000 to cover additional engineering time.\n\nThanks,\nTeam Alpha"
+        },
+        {
+          "id": "msg1-2",
+          "from": "user_email@example.com",
+          "to": ["team1@company.com"],
+          "date": "2025-04-30T19:15:00Z",
+          "subject": "Re: Project Alpha budget approval needed",
+          "snippet": "I've reviewed the budget request. Can you provide a breakdown...",
+          "body": "I've reviewed the budget request. Can you provide a breakdown of how the additional $15,000 will be allocated? I need to see the specific items before approving.\n\nBest,\nUser"
+        },
+        {
+          "id": "msg1-3",
+          "from": "team1@company.com",
+          "to": ["user_email@example.com"],
+          "date": "2025-04-30T19:45:00Z",
+          "subject": "Re: Project Alpha budget approval needed",
+          "snippet": "Here's the breakdown as requested: Engineering hours: $10,000...",
+          "body": "Here's the breakdown as requested:\n\n- Engineering hours: $10,000\n- Infrastructure costs: $3,000\n- Testing resources: $2,000\n\nLet me know if you need any other details.\n\nThanks,\nTeam Alpha"
+        }
+      ]
+    },
+    {
+      "threadId": "thread2",
+      "messages": [
+        {
+          "id": "msg2-1",
+          "from": "manager@company.com",
+          "to": ["user_email@example.com", "team1@company.com"],
+          "date": "2025-04-30T16:00:00Z",
+          "subject": "Quarterly Goals Review",
+          "snippet": "Let's schedule time next week to review progress on our quarterly goals...",
+          "body": "Let's schedule time next week to review progress on our quarterly goals. What times work for you?\n\nI'd like to specifically discuss Project Alpha and Project Beta progress against our Q2 targets.\n\nRegards,\nManager"
+        }
+      ]
+    },
+    {
+      "threadId": "thread3",
+      "messages": [
+        {
+          "id": "msg3-1",
+          "from": "external@partner.com",
+          "to": ["user_email@example.com"],
+          "date": "2025-04-30T13:00:00Z",
+          "subject": "FYI: New API Documentation",
+          "snippet": "Just wanted to share the updated API documentation for the integration...",
+          "body": "Just wanted to share the updated API documentation for the integration we discussed last week. No action needed, just for your information.\n\nThe updated docs include new endpoints for user authentication and data synchronization.\n\nBest regards,\nExternal Partner"
+        }
+      ]
+    },
+    {
+      "threadId": "thread4",
+      "messages": [
+        {
+          "id": "msg4-1",
+          "from": "newsletter@tech-news.com",
+          "to": ["user_email@example.com", "subscribers@tech-news.com"],
+          "date": "2025-04-29T08:00:00Z",
+          "subject": "This Week in Tech: AI Breakthroughs",
+          "snippet": "Here are this week's top stories in tech and AI development...",
+          "body": "This Week in Tech: AI Breakthroughs\n\nHere are this week's top stories in tech and AI development:\n\n1. New LLM model achieves record-breaking performance on reasoning tasks\n2. Startup raises $50M for AI-powered email management system\n3. Major cloud provider introduces new GPU instances for AI training\n4. Researchers demonstrate improved multi-agent coordination techniques\n\nRead more on our website: tech-news.com"
+        }
+      ]
+    },
+    {
+      "threadId": "thread5",
+      "messages": [
+        {
+          "id": "msg5-1",
+          "from": "calendar@company.com",
+          "to": ["user_email@example.com", "team1@company.com", "team2@company.com"],
+          "date": "2025-04-30T10:00:00Z",
+          "subject": "Calendar Invite: Weekly Status Meeting",
+          "snippet": "You are invited to Weekly Status Meeting",
+          "body": "CALENDAR INVITATION\n\nEvent: Weekly Status Meeting\nTime: May 2, 2025 10:00 AM - 11:00 AM\nLocation: Conference Room A / Zoom\nOrganizer: Team Lead\n\nAgenda:\n- Project updates\n- Roadmap review\n- Open issues and blockers\n\nPlease confirm your attendance."
+        },
+        {
+          "id": "msg5-2",
+          "from": "user_email@example.com",
+          "to": ["calendar@company.com"],
+          "date": "2025-04-30T10:05:00Z",
+          "subject": "Re: Calendar Invite: Weekly Status Meeting",
+          "snippet": "I'll be attending.",
+          "body": "I'll be attending.\n\nBest,\nUser"
+        }
+      ]
+    },
+    {
+      "threadId": "thread6",
+      "messages": [
+        {
+          "id": "msg6-1",
+          "from": "design@company.com",
+          "to": ["user_email@example.com", "team1@company.com"],
+          "date": "2025-04-30T15:00:00Z",
+          "subject": "Project Alpha - Design Feedback Needed",
+          "snippet": "I've created some mockups for the new feature. What do you think...",
+          "body": "I've created some mockups for the new feature. What do you think about these designs? I especially need your feedback on the user flow.\n\nThe mockups are attached to this email. Looking forward to your thoughts!\n\nThanks,\nDesign Team"
+        }
+      ]
+    },
+    {
+      "threadId": "thread7",
+      "messages": [
+        {
+          "id": "msg7-1",
+          "from": "urgent@security.com",
+          "to": ["user_email@example.com"],
+          "date": "2025-04-30T19:15:00Z",
+          "subject": "URGENT: Security Alert",
+          "snippet": "We've detected unusual login activity on your account...",
+          "body": "SECURITY ALERT\n\nWe've detected unusual login activity on your account. Please verify this was you or secure your account immediately.\n\nDetails:\n- Login from: Moscow, Russia\n- Time: 30-Apr-2025 19:10 UTC\n- Device: Unknown Android device\n\nIf this was not you, please change your password immediately and enable two-factor authentication.\n\nSecurity Team"
+        }
+      ]
+    },
+    {
+      "threadId": "thread8",
+      "messages": [
+        {
+          "id": "msg8-1",
+          "from": "support@ticketing.com",
+          "to": ["user_email@example.com"],
+          "date": "2025-04-28T14:30:00Z",
+          "subject": "Your support ticket #12345 has been created",
+          "snippet": "Thank you for contacting support. Your ticket has been received...",
+          "body": "Thank you for contacting support. Your ticket #12345 has been received and assigned to our technical team.\n\nTicket summary: API integration issue with OAuth flow\n\nWe'll update you as soon as we have more information. Our typical response time is within 24 hours.\n\nSupport Team"
+        },
+        {
+          "id": "msg8-2",
+          "from": "support@ticketing.com",
+          "to": ["user_email@example.com"],
+          "date": "2025-04-29T09:45:00Z",
+          "subject": "Re: Your support ticket #12345 has been created",
+          "snippet": "Our team has investigated the OAuth issue you reported...",
+          "body": "Our team has investigated the OAuth issue you reported. We found that the redirect URI configured in your app doesn't match the one registered in our developer portal.\n\nPlease update your OAuth configuration with the exact URI: https://yourapp.com/auth/callback\n\nLet us know if this resolves your issue.\n\nTechnical Support"
+        }
+      ]
+    },
+    {
+      "threadId": "thread9",
+      "messages": [
+        {
+          "id": "msg9-1",
+          "from": "hr@company.com",
+          "to": ["all-employees@company.com"],
+          "cc": ["executive-team@company.com"],
+          "date": "2025-04-30T09:00:00Z",
+          "subject": "Updated Company Policy: Remote Work Guidelines",
+          "snippet": "Please review the updated remote work policy effective May 15...",
+          "body": "Dear Team,\n\nPlease review the updated remote work policy effective May 15, 2025. The key changes include:\n\n1. Increased flexibility for choosing work-from-home days\n2. New equipment stipend for home office setup\n3. Updated expectations for virtual meeting attendance\n4. Quarterly in-person team gatherings\n\nThe full policy document is available on the company intranet.\n\nHuman Resources"
+        }
+      ]
+    },
+    {
+      "threadId": "thread10",
+      "messages": [
+        {
+          "id": "msg10-1",
+          "from": "ceo@company.com",
+          "to": ["all-employees@company.com"],
+          "date": "2025-04-25T18:00:00Z",
+          "subject": "Q1 Results and Future Outlook",
+          "snippet": "I'm pleased to announce that we've exceeded our Q1 targets by 15%...",
+          "body": "Dear Team,\n\nI'm pleased to announce that we've exceeded our Q1 targets by 15%.\n\nThis exceptional performance is a direct result of your hard work, dedication, and innovative thinking. The Project Alpha launch was particularly successful, generating 30% more revenue than projected.\n\nLooking ahead to Q2, we face both opportunities and challenges. The market is evolving rapidly, and we need to maintain our agility and customer focus.\n\nI'll be holding a company-wide town hall next Friday to discuss our strategy in more detail. Calendar invites will follow shortly.\n\nThank you all for your continued commitment to our mission.\n\nBest regards,\nCEO"
+        }
+      ]
+    }
+  ]
+} 
