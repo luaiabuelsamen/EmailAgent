@@ -5,16 +5,22 @@
     "frequentShopper": false,
     "traveler": false,
     "billPayer": false,
-    "jobSearching": true,
-    "sociallyActive": false
+    "jobSearching": false,
+    "sociallyActive": false,
+    "techSavvy": true,
+    "financeFocused": false,
+    "healthConscious": true
   },
   "timestamps": {
-    "workEmailUser": null,
-    "newsletterSubscriber": null,
-    "frequentShopper": null,
+    "workEmailUser": "2025-05-01T05:59:42.753000+00:00",
+    "newsletterSubscriber": "2025-05-14T22:31:31.435632",
+    "frequentShopper": "2025-04-30T21:22:03.151482",
     "traveler": null,
-    "billPayer": null,
-    "jobSearching": "2025-04-30T21:01:10.403217",
-    "sociallyActive": null
+    "billPayer": "2025-04-30T21:22:03.151482",
+    "jobSearching": "2025-05-01T05:59:42.753000+00:00",
+    "sociallyActive": null,
+    "techSavvy": "2025-05-14T23:12:39+00:00",
+    "financeFocused": "2025-05-14T22:31:31.435632",
+    "healthConscious": "2025-05-14T23:12:39+00:00"
   }
 }

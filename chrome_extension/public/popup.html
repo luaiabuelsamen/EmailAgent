@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Email Analysis</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="tabs">
+            <button class="tab-button active" data-tab="sentiment">Sentiment Analysis</button>
+            <button class="tab-button" data-tab="summary">Email Summary</button>
+            <button class="tab-button" data-tab="suggestions">Writing Suggestions</button>
+        </div>
+        
+        <div class="tab-content">
+            <div id="sentiment" class="tab-pane active">
+                <h2>Sentiment Analysis</h2>
+                <div class="analysis-box">
+                    <p>Analyze the emotional tone of your email...</p>
+                </div>
+            </div>
+            
+            <div id="summary" class="tab-pane">
+                <h2>Email Summary</h2>
+                <div class="analysis-box">
+                    <p>Get a quick summary of your email content...</p>
+                </div>
+            </div>
+            
+            <div id="suggestions" class="tab-pane">
+                <h2>Writing Suggestions</h2>
+                <div class="analysis-box">
+                    <p>Get suggestions to improve your email writing...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="popup.js"></script>
+</body>
+</html> 

@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "Email Analysis Agent",
+  "name": "Email Analysis Extension",
   "version": "1.0",
-  "description": "AI-powered email analysis for Gmail",
+  "description": "A Chrome extension for analyzing emails with multiple features",
   "permissions": [
     "activeTab",
     "storage",
@@ -10,26 +10,20 @@
     "identity.email"
   ],
   "host_permissions": [
-    "https://mail.google.com/*",
-    "http://localhost:8000/*"
+    "http://localhost:8000/*",
+    "https://www.googleapis.com/*"
   ],
-  "action": {
-    "default_popup": "popup.html"
-  },
-  "content_scripts": [
-    {
-      "matches": ["https://mail.google.com/*"],
-      "js": ["content.js"]
-    }
-  ],
-  "background": {
-    "service_worker": "background.js"
-  },
   "oauth2": {
-    "client_id": "${CHROME_CLIENT_ID}",
+    "client_id": "579362248829-g2sevv19cfinv8rmnd9qnapl82g42ul8.apps.googleusercontent.com",
     "scopes": [
-      "https://www.googleapis.com/auth/gmail.readonly",
-      "https://www.googleapis.com/auth/userinfo.email"
+      "https://www.googleapis.com/auth/gmail.readonly"
     ]
+  },
+  "action": {
+    "default_popup": "public/popup.html"
+  },
+  "background": {
+    "service_worker": "src/background.js",
+    "type": "module"
   }
 } 
